@@ -5,7 +5,7 @@ using Wallet.Data.Entities;
 
 namespace Wallet.Data.Configurations
 {
-    public class RecordConfigurations : BaseEntityMap<Record>
+    public class RecordConfiguration : BaseEntityMap<Record>
     {
         public RecordConfigurations(string TableName, string IdName) : base(TableName, IdName) { }
 

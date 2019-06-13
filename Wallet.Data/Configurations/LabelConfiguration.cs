@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Wallet.Data.Configurations.Core;
 using Wallet.Data.Entities;
 
-namespace Wallet.Data.Configurations.Core
+namespace Wallet.Data.Configurations
 {
     public class LabelConfiguration : BaseEntityMap<Label>
     {
