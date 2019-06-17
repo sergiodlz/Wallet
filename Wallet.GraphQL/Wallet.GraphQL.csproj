@@ -8,4 +8,9 @@
     <PackageReference Include="GraphQL" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wallet.Data\Wallet.Data.csproj" />
+    <ProjectReference Include="..\Wallet.Services\Wallet.Services.csproj" />
+  </ItemGroup>
+
 </Project>
