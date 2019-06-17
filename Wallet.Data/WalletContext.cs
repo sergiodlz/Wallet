@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using Wallet.Data.Configurations;
 
 namespace Wallet.Data
@@ -18,6 +19,11 @@ namespace Wallet.Data
             new SubCategoryConfiguration("SubCategory", "SubCategoryId").Map(modelBuilder);
             new UserConfiguration("User", "UserId").Map(modelBuilder);
             new RecordLabelConfiguration("RecordLabel", "").Map(modelBuilder);
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await base.SaveChangesAsync();
         }
     }
 }
