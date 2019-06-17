@@ -6,6 +6,8 @@ namespace Wallet.Data.Entities
     {
         public string Name { get; set; }
 
-        public virtual IEnumerable<Record> Records { get; set; }
+        //public virtual IEnumerable<Record> Records { get; set; }
+
+        public IList<RecordLabel> RecordLabels { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace Wallet.Data.Configurations.Core
         public BaseEntityMap(string TableName, string IdName)
         {
             this.TableName = TableName;
-            this.IdName = TableName;
+            this.IdName = IdName;
         }
 
         public void Map(ModelBuilder builder)

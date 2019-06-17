@@ -25,11 +25,6 @@ namespace Wallet.Data.Configurations
                 .Property(x => x.Password)
                 .IsUnicode()
                 .HasMaxLength(1000);
-
-            builder
-                .HasMany(x => x.Accounts)
-                .WithOne()
-                .HasForeignKey(a => a.UserId);
         }
     }
 }

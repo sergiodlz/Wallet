@@ -7,7 +7,7 @@ namespace Wallet.Data.Configurations
 {
     public class RecordConfiguration : BaseEntityMap<Record>
     {
-        public RecordConfigurations(string TableName, string IdName) : base(TableName, IdName) { }
+        public RecordConfiguration(string TableName, string IdName) : base(TableName, IdName) { }
 
         protected override void InternalMap(EntityTypeBuilder<Record> builder)
         {
@@ -41,6 +41,15 @@ namespace Wallet.Data.Configurations
                 .HasOne(x => x.SubCategory)
                 .WithMany()
                 .HasForeignKey(x => x.SubCategoryId);
+
+            builder
+                .Property(x => x.AccountId)
+                .IsRequired();
+
+            builder
+                .HasOne<Account>()
+                .WithMany(a => a.Records)
+                .HasForeignKey(x => x.AccountId);
         }
     }
 }

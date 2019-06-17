@@ -27,6 +27,11 @@ namespace Wallet.Data.Configurations
                 .IsRequired();
 
             builder
+                .HasOne(x => x.User)
+                .WithMany(a => a.Accounts)
+                .HasForeignKey(x => x.UserId);
+
+            builder
                 .Property(x => x.InitialBalance)
                 .HasDefaultValueSql("0");
 

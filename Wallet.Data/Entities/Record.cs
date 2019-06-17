@@ -15,10 +15,14 @@ namespace Wallet.Data.Entities
 
         public virtual RecordType Type { get; set; }
 
-        public virtual IEnumerable<Label> Labels { get; set; }
+        //public virtual IEnumerable<Label> Labels { get; set; }
 
         public Guid SubCategoryId { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
+
+        public IList<RecordLabel> RecordLabels { get; set; }
+
+        public Guid AccountId { get; set; }
     }
 }

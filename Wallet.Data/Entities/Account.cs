@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Wallet.Data.Entities
 {
@@ -21,5 +22,7 @@ namespace Wallet.Data.Entities
         public byte[] Icon { get; set; }
 
         public string Color { get; set; }
+
+        public virtual IEnumerable<Record> Records { get; set; }
     }
 }

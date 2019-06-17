@@ -17,6 +17,7 @@ namespace Wallet.Data
             new RecordTypeConfiguration("RecordType", "RecordTypeId").Map(modelBuilder);
             new SubCategoryConfiguration("SubCategory", "SubCategoryId").Map(modelBuilder);
             new UserConfiguration("User", "UserId").Map(modelBuilder);
+            new RecordLabelConfiguration("RecordLabel", "").Map(modelBuilder);
         }
     }
 }
