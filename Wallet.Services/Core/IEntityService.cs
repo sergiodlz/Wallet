@@ -51,6 +51,6 @@ namespace Wallet.Services.Core
         /// </summary>
         /// <param name="expression">Condition to filter records</param>
         /// <returns></returns>
-        Task<IEnumerable<TEntity>> FindByCondition(Expression<Func<TEntity, bool>> expression);
+        Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression);
     }
 }
