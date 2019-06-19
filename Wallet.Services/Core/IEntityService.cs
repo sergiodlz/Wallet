@@ -52,5 +52,11 @@ namespace Wallet.Services.Core
         /// <param name="expression">Condition to filter records</param>
         /// <returns></returns>
         Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression);
+
+        /// <summary>
+        /// Get all records with relations
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<TEntity>> GetAllAndIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties);
     }
 }

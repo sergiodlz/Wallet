@@ -1,7 +1,7 @@
 ﻿using GraphQL.Types;
 using Wallet.Data.Entities;
-using Wallet.Services.GraphQL.Types;
 using Wallet.Services.Core;
+using Wallet.Services.GraphQL.Types;
 
 namespace Wallet.Services.GraphQL.Queries
 {
@@ -11,7 +11,7 @@ namespace Wallet.Services.GraphQL.Queries
         {
             Field<ListGraphType<AccountGQL>>(
                "accounts",
-               resolve: context => repository.GetAllAsync()
+               resolve: context => repository.GetAllAndIncludeAsync(x => x.Type)
            );
         }
     }

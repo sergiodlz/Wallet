@@ -52,6 +52,19 @@ namespace Wallet.Services
                 .Where(t => t.Enable).ToListAsync();
         }
 
+        public async Task<IEnumerable<TEntity>> GetAllAndIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _context.Set<TEntity>()
+                .AsNoTracking().Where(t => t.Enable);
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.ToListAsync();
+        }
+
         public async Task<TEntity> GetByIdAsync(string id)
         {
             return await _context.Set<TEntity>().AsNoTracking()
