@@ -1,8 +1,8 @@
 ﻿using GraphQL;
 using GraphQL.Types;
-using Wallet.GraphQL.Queries;
+using Wallet.Services.GraphQL.Queries;
 
-namespace Wallet.GraphQL
+namespace Wallet.Services.GraphQL
 {
     public class AppSchema : Schema
     {

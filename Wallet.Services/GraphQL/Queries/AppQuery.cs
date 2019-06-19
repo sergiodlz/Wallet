@@ -1,9 +1,9 @@
 ﻿using GraphQL.Types;
 using Wallet.Data.Entities;
-using Wallet.GraphQL.Types;
+using Wallet.Services.GraphQL.Types;
 using Wallet.Services.Core;
 
-namespace Wallet.GraphQL.Queries
+namespace Wallet.Services.GraphQL.Queries
 {
     public class AppQuery : ObjectGraphType
     {

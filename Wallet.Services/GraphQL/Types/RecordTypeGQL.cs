@@ -1,11 +1,11 @@
 ﻿using GraphQL.Types;
 using Wallet.Data.Entities;
 
-namespace Wallet.GraphQL.Types
+namespace Wallet.Services.GraphQL.Types
 {
-    public class UserGQL : ObjectGraphType<User>
+    public class RecordTypeGQL : ObjectGraphType<RecordType>
     {
-        public UserGQL()
+        public RecordTypeGQL()
         {
             Field(x => x.Id, type: typeof(IdGraphType));
             Field(x => x.CreatedBy);
@@ -14,9 +14,7 @@ namespace Wallet.GraphQL.Types
             Field(x => x.LastMdifiedBy);
             Field(x => x.ModificationDate);
 
-            Field(x => x.Email);
             Field(x => x.Name);
-            Field(x => x.Password);
         }
     }
 }

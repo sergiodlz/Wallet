@@ -1,7 +1,7 @@
 ﻿using GraphQL.Types;
 using Wallet.Data.Entities;
 
-namespace Wallet.GraphQL.Types
+namespace Wallet.Services.GraphQL.Types
 {
     public class SubCategoryGQL : ObjectGraphType<SubCategory>
     {

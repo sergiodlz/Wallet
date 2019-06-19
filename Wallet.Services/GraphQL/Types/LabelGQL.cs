@@ -1,11 +1,11 @@
 ﻿using GraphQL.Types;
 using Wallet.Data.Entities;
 
-namespace Wallet.GraphQL.Types
+namespace Wallet.Services.GraphQL.Types
 {
-    public class CategoryGQL : ObjectGraphType<Category>
+    public class LabelGQL : ObjectGraphType<Label>
     {
-        public CategoryGQL()
+        public LabelGQL()
         {
             Field(x => x.Id, type: typeof(IdGraphType));
             Field(x => x.CreatedBy);
