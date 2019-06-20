@@ -12,7 +12,8 @@ namespace Wallet.Services.Core
         /// Create record
         /// </summary>
         /// <param name="entity">Record to create</param>
-        void Create(TEntity entity);
+        /// <returns></returns>
+        Task<TEntity> CreateAsync(TEntity entity, string userBy);
 
         /// <summary>
         /// Update record
