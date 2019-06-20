@@ -54,6 +54,16 @@ namespace Wallet.Services.Core
         Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression);
 
         /// <summary>
+        /// Get records that match
+        /// some criteria with relations
+        /// </summary>
+        /// <param name="expression"></param>
+        /// <param name="includeProperties"></param>
+        /// <returns></returns>
+        Task<IEnumerable<TEntity>> FindByConditionAndIncludeAsync(Expression<Func<TEntity, bool>> expression, 
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        /// <summary>
         /// Get all records with relations
         /// </summary>
         /// <returns></returns>
