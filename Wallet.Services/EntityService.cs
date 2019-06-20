@@ -65,7 +65,7 @@ namespace Wallet.Services
             return await query.ToListAsync();
         }
 
-        public async Task<TEntity> GetByIdAsync(string id)
+        public async Task<TEntity> GetByIdAsync(Guid id)
         {
             return await _context.Set<TEntity>().AsNoTracking()
                     .Where(t => t.Id.Equals(id)).FirstOrDefaultAsync();

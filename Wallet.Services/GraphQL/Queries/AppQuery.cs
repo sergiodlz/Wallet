@@ -23,8 +23,7 @@ namespace Wallet.Services.GraphQL.Queries
                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "userId" }),
                resolve: context =>
                {
-                   Guid id;
-                   if (!Guid.TryParse(context.GetArgument<string>("userId"), out id))
+                   if (!Guid.TryParse(context.GetArgument<string>("userId"), out Guid id))
                    {
                        context.Errors.Add(new ExecutionError("Wrong value for guid argument"));
                        return null;
@@ -36,10 +35,29 @@ namespace Wallet.Services.GraphQL.Queries
 
             #endregion
 
+            #region User
+
             Field<ListGraphType<UserGQL>>(
                "users",
                resolve: context => _userService.GetAllAsync()
             );
+
+            Field<UserGQL>(
+               "user",
+               arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "id" }),
+               resolve: context =>
+               {
+                   if (!Guid.TryParse(context.GetArgument<string>("id"), out Guid id))
+                   {
+                       context.Errors.Add(new ExecutionError("Wrong value for guid argument"));
+                       return null;
+                   }
+
+                   return _userService.GetByIdAsync(id);
+               }
+            );
+
+            #endregion
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Wallet.Services.Core
         /// </summary>
         /// <param name="id">record id</param>
         /// <returns></returns>
-        Task<TEntity> GetByIdAsync(string id);
+        Task<TEntity> GetByIdAsync(Guid id);
 
         /// <summary>
         /// Get all records
