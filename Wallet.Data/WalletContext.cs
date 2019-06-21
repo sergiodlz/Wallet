@@ -20,10 +20,5 @@ namespace Wallet.Data
             new UserConfiguration("User", "UserId").Map(modelBuilder);
             new RecordLabelConfiguration("RecordLabel", "").Map(modelBuilder);
         }
-
-        public async Task<int> SaveChangesAsync()
-        {
-            return await base.SaveChangesAsync();
-        }
     }
 }

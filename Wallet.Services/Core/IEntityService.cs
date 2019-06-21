@@ -13,13 +13,13 @@ namespace Wallet.Services.Core
         /// </summary>
         /// <param name="entity">Record to create</param>
         /// <returns></returns>
-        Task<TEntity> CreateAsync(TEntity entity, string userBy);
+        Task<TEntity> CreateAsync(TEntity entity);
 
         /// <summary>
         /// Update record
         /// </summary>
         /// <param name="entity">Record to update</param>
-        Task<TEntity> UpdateAsync(TEntity entity, string userBy);
+        Task<TEntity> UpdateAsync(TEntity entity);
 
         /// <summary>
         /// Delete record

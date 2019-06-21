@@ -21,11 +21,8 @@ namespace Wallet.Services
             _context = context;
         }
 
-        public async Task<TEntity> CreateAsync(TEntity entity, string userBy)
+        public async Task<TEntity> CreateAsync(TEntity entity)
         {
-            entity.CreationDate = entity.ModificationDate = DateTime.UtcNow;
-            entity.Enable = true;
-            entity.LastMdifiedBy = entity.CreatedBy = userBy;
             _context.Set<TEntity>().Add(entity);
             await _context.SaveChangesAsync();
 
@@ -76,10 +73,8 @@ namespace Wallet.Services
                     .Where(t => t.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity, string userBy)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            entity.ModificationDate = DateTime.UtcNow;
-            entity.LastMdifiedBy = userBy;
             EntityEntry dbEntityEntry = _context.Entry(entity);
             dbEntityEntry.State = EntityState.Modified;
             await _context.SaveChangesAsync();
