@@ -19,7 +19,7 @@ namespace Wallet.Services.Core
         /// Update record
         /// </summary>
         /// <param name="entity">Record to update</param>
-        void Update(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity, string userBy);
 
         /// <summary>
         /// Delete record

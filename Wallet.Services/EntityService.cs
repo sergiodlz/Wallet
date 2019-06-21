@@ -76,11 +76,15 @@ namespace Wallet.Services
                     .Where(t => t.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
-        public void Update(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity, string userBy)
         {
             entity.ModificationDate = DateTime.UtcNow;
+            entity.LastMdifiedBy = userBy;
             EntityEntry dbEntityEntry = _context.Entry(entity);
             dbEntityEntry.State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
 
         public async Task<IEnumerable<TEntity>> FindByConditionAndIncludeAsync(Expression<Func<TEntity, bool>> expression, 
