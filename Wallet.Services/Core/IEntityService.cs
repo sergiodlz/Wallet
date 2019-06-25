@@ -41,6 +41,15 @@ namespace Wallet.Services.Core
         Task<TEntity> GetByIdAsync(Guid id);
 
         /// <summary>
+        /// Get record by id
+        /// and include relations
+        /// </summary>
+        /// <param name="id">record id</param>
+        /// <returns></returns>
+        Task<TEntity> GetByIdAndIncludeAsync(Guid id,
+            params Expression<Func<TEntity, object>>[] includeProperties);
+
+        /// <summary>
         /// Get all records
         /// </summary>
         /// <returns></returns>

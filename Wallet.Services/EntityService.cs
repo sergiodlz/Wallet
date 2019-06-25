@@ -70,7 +70,7 @@ namespace Wallet.Services
         public async Task<TEntity> GetByIdAsync(Guid id)
         {
             return await _context.Set<TEntity>().AsNoTracking()
-                    .Where(t => t.Id.Equals(id)).FirstOrDefaultAsync();
+                    .Where(t => t.Enable && t.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         public async Task<TEntity> UpdateAsync(TEntity entity)
@@ -94,6 +94,19 @@ namespace Wallet.Services
             }
 
             return await query.ToListAsync();
+        }
+
+        public async Task<TEntity> GetByIdAndIncludeAsync(Guid id, params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> query = _context.Set<TEntity>().AsNoTracking()
+                    .Where(t => t.Enable && t.Id.Equals(id));
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.FirstOrDefaultAsync();
         }
     }
 }
