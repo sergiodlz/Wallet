@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Wallet.Data.Entities;
 using Wallet.Services.Core;
 
-namespace Wallet.Services.Extensions
+namespace Wallet.Services.GraphQL.Extensions
 {
     public static class GraphQLExtension
     {
