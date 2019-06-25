@@ -9,14 +9,16 @@ namespace Wallet.Services.GraphQL.Queries
 {
     public class AppMutation : ObjectGraphType
     {
-        public AppMutation(IEntityService<User> _userService)
+        public AppMutation(IEntityService<User> _userService, 
+            IEntityService<Record> _recordService)
         {
+            #region User
             Field<UserGQL>(
                 "createUser",
                 arguments: new QueryArguments(
                     new QueryArgument<NonNullGraphType<UserMGQL>> { Name = "user" },
                     new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "userBy" }),
-                resolve: context => _userService.CreateUserGQL(context)
+                resolve: context => _userService.CreateEntityGQL(context, "user")
             );
 
             Field<UserGQL>(
@@ -26,6 +28,17 @@ namespace Wallet.Services.GraphQL.Queries
                     new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "userBy" }),
                 resolve: context => _userService.UpdateUserGQL(context)
             );
+            #endregion
+
+            #region Record
+            Field<RecordGQL>(
+                "createRecord",
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<RecordMGQL>> { Name = "record" },
+                    new QueryArgument<NonNullGraphType<StringGraphType>> { Name = "userBy" }),
+                resolve: context => _recordService.CreateEntityGQL(context, "record")
+            );
+            #endregion
         }
     }
 }
