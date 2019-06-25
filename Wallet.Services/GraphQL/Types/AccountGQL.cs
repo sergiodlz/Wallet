@@ -21,6 +21,7 @@ namespace Wallet.Services.GraphQL.Types
             Field(x => x.TypeId, type: typeof(IdGraphType)).Description("TypeId property from the account object.");
             Field(x => x.UserId, type: typeof(IdGraphType)).Description("UserId property from the account object.");
             Field<AccountTypeGQL>("Type");
+            Field<ListGraphType<RecordGQL>>("Records", description: "Only in account search");
         }
     }
 }

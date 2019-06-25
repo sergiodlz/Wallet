@@ -29,7 +29,30 @@ namespace Wallet.Services.GraphQL.Queries
                        return null;
                    }
 
-                   return _accountService.FindByConditionAndIncludeAsync(x => x.UserId.Equals(id), x => x.Type);
+                   return _accountService
+                            .FindByConditionAndIncludeAsync(
+                                x => x.UserId.Equals(id), 
+                                x => x.Type
+                            );
+               }
+            );
+
+            Field<AccountGQL>(
+               "account",
+               arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "id" }),
+               resolve: context =>
+               {
+                   if (!Guid.TryParse(context.GetArgument<string>("id"), out Guid id))
+                   {
+                       context.Errors.Add(new ExecutionError("Wrong value for guid argument"));
+                       return null;
+                   }
+
+                   return _accountService
+                            .GetByIdAndIncludeAsync(id, 
+                                x => x.Type, 
+                                x => x.Records
+                            );
                }
             );
 
