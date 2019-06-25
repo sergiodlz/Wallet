@@ -10,31 +10,6 @@ namespace Wallet.Services.Extensions
     public static class UserExtension
     {
         /// <summary>
-        /// Create user using GraphQL mutation
-        /// </summary>
-        /// <param name="_userService">Generic user repository</param>
-        /// <param name="context">GraphQL context</param>
-        /// <returns>User created</returns>
-        public static async Task<User> CreateUserGQL(
-            this IEntityService<User> _userService, 
-            ResolveFieldContext<object> context)
-        {
-            User user = context.GetArgument<User>("user");
-            string userBy = context.GetArgument<string>("userBy");
-
-            if (user == null)
-            {
-                context.Errors.Add(new ExecutionError("User to create empty."));
-                return null;
-            }
-
-            user.CreationDate = user.ModificationDate = DateTime.UtcNow;
-            user.Enable = true;
-            user.LastMdifiedBy = user.CreatedBy = userBy;
-            return await _userService.CreateAsync(user);
-        }
-
-        /// <summary>
         /// Update user using GraphQL mutation
         /// </summary>
         /// <param name="_userService">Generic user repository</param>
