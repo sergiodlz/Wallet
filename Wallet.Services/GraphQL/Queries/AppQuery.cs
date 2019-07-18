@@ -37,10 +37,10 @@ namespace Wallet.Services.GraphQL.Queries
                }
             );
 
-            Field<AccountGQL>(
+            FieldAsync<AccountGQL>(
                "account",
                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<IdGraphType>> { Name = "id" }),
-               resolve: context =>
+               resolve: async context =>
                {
                    if (!Guid.TryParse(context.GetArgument<string>("id"), out Guid id))
                    {
@@ -48,7 +48,7 @@ namespace Wallet.Services.GraphQL.Queries
                        return null;
                    }
 
-                   return _accountService
+                   return await _accountService
                             .GetByIdAndIncludeAsync(id, 
                                 x => x.Type, 
                                 x => x.Records
