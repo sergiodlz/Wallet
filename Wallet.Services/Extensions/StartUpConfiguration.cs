@@ -38,5 +38,25 @@ namespace Wallet.Services.Extensions
         {
             services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
         }
+
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
+        }
+
+        public static void ConfigureIISIntegration(this IServiceCollection services)
+        {
+            services.Configure<IISOptions>(options =>
+            {
+
+            });
+        }
     }
 }

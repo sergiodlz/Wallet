@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +23,9 @@ namespace Wallet.API
             services.ConfigureDBConnection(Configuration);
             services.ConfigureDI();
             //services.ConfigureGraphQL();
+
+            services.ConfigureCors();
+            services.ConfigureIISIntegration();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
@@ -34,6 +38,12 @@ namespace Wallet.API
             }
 
             app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.All
+            });
+            app.UseStaticFiles();
             //app.UseGraphQL();
             app.UseMvc();
         }
