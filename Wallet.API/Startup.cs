@@ -21,7 +21,7 @@ namespace Wallet.API
         {
             services.ConfigureDBConnection(Configuration);
             services.ConfigureDI();
-            services.ConfigureGraphQL();
+            //services.ConfigureGraphQL();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
@@ -34,7 +34,7 @@ namespace Wallet.API
             }
 
             app.UseHttpsRedirection();
-            app.UseGraphQL();
+            //app.UseGraphQL();
             app.UseMvc();
         }
     }
