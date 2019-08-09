@@ -39,6 +39,7 @@ namespace Wallet.API
             }
 
             app.ConfigureExceptionHandler(logger);
+            //app.ConfigureCustomExceptionMiddleware();
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
             app.UseForwardedHeaders(new ForwardedHeadersOptions
