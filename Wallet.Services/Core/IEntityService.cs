@@ -25,13 +25,13 @@ namespace Wallet.Services.Core
         /// Delete record
         /// </summary>
         /// <param name="entity">Record to delete</param>
-        void Delete(TEntity entity);
+        Task DeleteAsync(TEntity entity);
 
         /// <summary>
         /// Disable entity
         /// </summary>
         /// <param name="entity">Entity to disable</param>
-        void Disable(TEntity entity);
+        Task DisableAsync(TEntity entity);
 
         /// <summary>
         /// Get record by id
