@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Wallet.Data;
+using Wallet.Services.ActionFilters;
 using Wallet.Services.Core;
 using Wallet.Services.GraphQL;
 
@@ -37,6 +38,9 @@ namespace Wallet.Services.Extensions
         public static void ConfigureDI(this IServiceCollection services)
         {
             services.AddScoped(typeof(IEntityService<>), typeof(EntityService<>));
+            services.AddScoped<ValidationFilterAttribute>();
+            services.AddScoped(typeof(ValidateEntityExistsAttribute<>));
+            services.AddScoped(typeof(ValidateEntityExistsAsync<>));
         }
 
         public static void ConfigureCors(this IServiceCollection services)
@@ -57,6 +61,11 @@ namespace Wallet.Services.Extensions
             {
 
             });
+        }
+
+        public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
+        {
+            app.UseMiddleware<HandlingErrors.ExceptionMiddleware>();
         }
     }
 }
