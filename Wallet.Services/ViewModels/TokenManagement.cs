@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Wallet.Data.Entities
+namespace Wallet.Services.ViewModels
 {
     [JsonObject("tokenManagement")]
     public class TokenManagement

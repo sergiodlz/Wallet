@@ -6,8 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Wallet.Data.Entities;
 using Wallet.Services.Extensions;
+using Wallet.Services.ViewModels;
 
 namespace Wallet.API
 {

@@ -7,13 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
 using System.Text;
 using Wallet.Data;
-using Wallet.Data.Entities;
 using Wallet.Services.ActionFilters;
 using Wallet.Services.Core;
 using Wallet.Services.GraphQL;
+using Wallet.Services.ViewModels;
 
 namespace Wallet.Services.Extensions
 {
@@ -80,7 +79,6 @@ namespace Wallet.Services.Extensions
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
             }).AddJwtBearer(x =>
             {
                 var token = configuration.GetSection("tokenManagement").Get<TokenManagement>();
