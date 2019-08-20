@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Wallet.Data.Entities;
 using Wallet.Services.Extensions;
 
 namespace Wallet.API
@@ -27,11 +28,16 @@ namespace Wallet.API
 
             services.ConfigureCors();
             services.ConfigureIISIntegration();
+
+            services.Configure<TokenManagement>(Configuration.GetSection("tokenManagement"));
+            services.ConfigureAuthentication(Configuration);
+            services.ConfigurePolicies();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
@@ -42,6 +48,7 @@ namespace Wallet.API
             //app.ConfigureCustomExceptionMiddleware();
             app.UseHttpsRedirection();
             app.UseCors("CorsPolicy");
+            app.UseAuthentication();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
                 ForwardedHeaders = ForwardedHeaders.All

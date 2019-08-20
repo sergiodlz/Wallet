@@ -1,11 +1,16 @@
 ﻿using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 using Wallet.Data;
+using Wallet.Data.Entities;
 using Wallet.Services.ActionFilters;
 using Wallet.Services.Core;
 using Wallet.Services.GraphQL;
@@ -41,6 +46,8 @@ namespace Wallet.Services.Extensions
             services.AddScoped<ValidationFilterAttribute>();
             services.AddScoped(typeof(ValidateEntityExistsAttribute<>));
             services.AddScoped(typeof(ValidateEntityExistsAsync<>));
+            services.AddScoped<IAuthenticateService, TokenAuthenticationService>();
+            services.AddScoped<IUserManagementService, UserManagementService>();
         }
 
         public static void ConfigureCors(this IServiceCollection services)
@@ -59,13 +66,46 @@ namespace Wallet.Services.Extensions
         {
             services.Configure<IISOptions>(options =>
             {
-
             });
         }
 
         public static void ConfigureCustomExceptionMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<HandlingErrors.ExceptionMiddleware>();
+        }
+
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(x =>
+            {
+                var token = configuration.GetSection("tokenManagement").Get<TokenManagement>();
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(token.Secret)),
+                    ValidIssuer = token.Issuer,
+                    ValidAudience = token.Audience,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true
+                };
+            });
+        }
+
+        public static void ConfigurePolicies(this IServiceCollection services)
+        {
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdministratorOnly",
+                    policy => policy.RequireRole("Administrator", "SuperAdministrator"));
+            });
         }
     }
 }
