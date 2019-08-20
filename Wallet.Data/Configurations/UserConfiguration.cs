@@ -25,6 +25,12 @@ namespace Wallet.Data.Configurations
                 .Property(x => x.Password)
                 .IsUnicode()
                 .HasMaxLength(1000);
+
+            builder
+               .Property(x => x.UserName)
+               .IsRequired()
+               .IsUnicode()
+               .HasMaxLength(50);
         }
     }
 }

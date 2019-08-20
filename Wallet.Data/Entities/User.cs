@@ -10,6 +10,8 @@ namespace Wallet.Data.Entities
 
         public string Password { get; set; }
 
+        public string UserName { get; set; }
+
         public virtual IEnumerable<Account> Accounts { get; set; }
     }
 }
