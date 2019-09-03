@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Wallet.Data.Entities;
 using Wallet.Services.ActionFilters;
 using Wallet.Services.Core;
 using Wallet.Services.Extensions;
+using Wallet.Services.ViewModels;
 
 namespace Wallet.API.Controllers
 {
@@ -21,14 +23,17 @@ namespace Wallet.API.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IEntityService<Account> _accountService;
         private readonly IEntityService<Record> _recordService;
+        private readonly IMapper _mapper;
 
         public AccountController(ILogger<AccountController> logger,
             IEntityService<Account> accountService,
-            IEntityService<Record> recordService)
+            IEntityService<Record> recordService,
+            IMapper mapper)
         {
             _logger = logger;
             _accountService = accountService;
             _recordService = recordService;
+            _mapper = mapper;
         }
 
         // GET: api/Account
@@ -37,7 +42,8 @@ namespace Wallet.API.Controllers
         {
             Guid.TryParse(User.Claims.FirstOrDefault(p => p.Type.Equals("Id")).Value, out Guid id);
             var accounts = await _accountService.FindByConditionAndIncludeAsync(a => a.UserId.Equals(id), a => a.Type);
-            return Ok(accounts);
+            IEnumerable<AccountVM> accountVMs = _mapper.Map<IEnumerable<AccountVM>>(accounts);
+            return Ok(accountVMs);
         }
 
         // GET: api/Account/5
@@ -47,7 +53,8 @@ namespace Wallet.API.Controllers
         {
             var account = HttpContext.Items["entity"] as Account;
             account.Records = await _recordService.FindByConditionAndIncludeAsync(r => r.AccountId.Equals(id), r => r.SubCategory, r => r.Type);
-            return Ok(account);
+            AccountVM accountVM = _mapper.Map<AccountVM>(account);
+            return Ok(accountVM);
         }
 
         // POST: api/Account

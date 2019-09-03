@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Wallet.Data.Entities
+namespace Wallet.Services.ViewModels
 {
-    public class Record : BaseEntity
+    public class RecordVM
     {
+        public Guid Id { get; set; }
+
         public DateTime Date { get; set; }
 
         public string Description { get; set; }
@@ -13,13 +15,13 @@ namespace Wallet.Data.Entities
 
         public Guid TypeId { get; set; }
 
-        public virtual RecordType Type { get; set; }
+        public string Type { get; set; }
 
         public Guid SubCategoryId { get; set; }
 
-        public virtual SubCategory SubCategory { get; set; }
+        public string SubCategory { get; set; }
 
-        public IList<RecordLabel> RecordLabels { get; set; }
+        //public IList<RecordLabel> RecordLabels { get; set; }
 
         public Guid AccountId { get; set; }
     }

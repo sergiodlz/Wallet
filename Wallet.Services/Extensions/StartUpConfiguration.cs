@@ -1,4 +1,5 @@
-﻿using GraphQL;
+﻿using AutoMapper;
+using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -10,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Wallet.Data;
 using Wallet.Services.ActionFilters;
+using Wallet.Services.AutoMapper;
 using Wallet.Services.Core;
 using Wallet.Services.GraphQL;
 using Wallet.Services.ViewModels;
@@ -104,6 +106,18 @@ namespace Wallet.Services.Extensions
                 options.AddPolicy("AdministratorOnly",
                     policy => policy.RequireRole("Administrator", "SuperAdministrator"));
             });
+        }
+
+        public static void ConfigureAutomapper(this IServiceCollection services)
+        {
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new AccountProfile());
+                mc.AddProfile(new RecordProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }
