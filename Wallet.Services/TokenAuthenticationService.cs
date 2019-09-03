@@ -29,7 +29,8 @@ namespace Wallet.Services
             var claim = new[]
             {
                 new Claim(ClaimTypes.Name, request.Username),
-                new Claim(ClaimTypes.Role, "Administrator")
+                new Claim(ClaimTypes.Role, "Administrator"),
+                new Claim("Id", "68B19F86-E52E-4B24-9003-06B6ECAD4201")
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenManagement.Secret));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
