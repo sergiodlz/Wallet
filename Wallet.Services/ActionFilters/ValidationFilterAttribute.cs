@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
+using System.Threading.Tasks;
 using Wallet.Data.Entities;
 
 namespace Wallet.Services.ActionFilters
 {
-    public class ValidationFilterAttribute : IActionFilter
+    public class ValidationFilterAttribute : IAsyncActionFilter
     {
-        public void OnActionExecuting(ActionExecutingContext context)
+        public void ValidateAttribute(ActionExecutingContext context)
         {
             var param = context.ActionArguments.SingleOrDefault(p => p.Value is BaseEntity);
             if (param.Value == null)
             {
                 context.Result = new BadRequestObjectResult("Object is null");
-                return;
             }
 
             if (!context.ModelState.IsValid)
@@ -22,8 +22,10 @@ namespace Wallet.Services.ActionFilters
             }
         }
 
-        public void OnActionExecuted(ActionExecutedContext context)
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
+            ValidateAttribute(context);
+            await next();
         }
     }
 }
