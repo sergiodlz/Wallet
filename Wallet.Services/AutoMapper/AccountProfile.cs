@@ -11,7 +11,7 @@ namespace Wallet.Services.AutoMapper
             CreateMap<Account, AccountVM>()
                 .ForMember(dest => dest.Type, opt => opt.MapFrom(src => src.Type.Name));
 
-            CreateMap<AccountCreateVM, Account>()
+            CreateMap<AccountCUDVM, Account>()
                 .ForMember(dest => dest.Type, opt => opt.Ignore());
         }
     }

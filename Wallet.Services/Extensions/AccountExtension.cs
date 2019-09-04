@@ -1,11 +1,12 @@
 ﻿using System;
 using Wallet.Data.Entities;
+using Wallet.Services.ViewModels;
 
 namespace Wallet.Services.Extensions
 {
     public static class AccountExtension
     {
-        public static void Map(this Account dbAccount, Account account, string modifiedBy)
+        public static void Map(this Account dbAccount, AccountCUDVM account, string modifiedBy)
         {
             dbAccount.Color = account.Color;
             dbAccount.Description = account.Description;

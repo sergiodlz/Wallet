@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace Wallet.Services.ViewModels
 {
-    public class AccountVM
+    public class AccountVM : BaseEntityVM
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }

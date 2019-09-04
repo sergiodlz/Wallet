@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Wallet.Services.ViewModels
 {
-    public class AccountCreateVM : BaseEntityVM
+    public class AccountCUDVM : BaseEntityVM
     {
         [Required]
         [StringLength(maximumLength:250, MinimumLength = 5)]

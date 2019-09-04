@@ -60,7 +60,7 @@ namespace Wallet.API.Controllers
         // POST: api/Account
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> Post([FromBody] AccountCreateVM accountVM)
+        public async Task<IActionResult> Post([FromBody] AccountCUDVM accountVM)
         {
             Account account = _mapper.Map<Account>(accountVM);
             return Ok(await _accountService.CreateAsync(account));
@@ -70,7 +70,7 @@ namespace Wallet.API.Controllers
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ServiceFilter(typeof(ValidateEntityExistsAsync<Account>))]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Account accountVM)
+        public async Task<IActionResult> Put(Guid id, [FromBody] AccountCUDVM accountVM)
         {
             var account = HttpContext.Items["entity"] as Account;
             account.Map(accountVM, User.Identity.Name);
