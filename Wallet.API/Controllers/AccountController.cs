@@ -60,8 +60,9 @@ namespace Wallet.API.Controllers
         // POST: api/Account
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> Post([FromBody] Account account)
+        public async Task<IActionResult> Post([FromBody] AccountCreateVM accountVM)
         {
+            Account account = _mapper.Map<Account>(accountVM);
             return Ok(await _accountService.CreateAsync(account));
         }
 

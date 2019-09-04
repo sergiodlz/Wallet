@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Linq;
 using System.Threading.Tasks;
-using Wallet.Data.Entities;
+using Wallet.Services.ViewModels;
 
 namespace Wallet.Services.ActionFilters
 {
@@ -10,7 +10,7 @@ namespace Wallet.Services.ActionFilters
     {
         public void ValidateAttribute(ActionExecutingContext context)
         {
-            var param = context.ActionArguments.SingleOrDefault(p => p.Value is BaseEntity);
+            var param = context.ActionArguments.SingleOrDefault(p => p.Value is BaseEntityVM);
             if (param.Value == null)
             {
                 context.Result = new BadRequestObjectResult("Object is null");
