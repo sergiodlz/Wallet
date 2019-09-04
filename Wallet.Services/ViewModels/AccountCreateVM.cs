@@ -6,8 +6,10 @@ namespace Wallet.Services.ViewModels
     public class AccountCreateVM : BaseEntityVM
     {
         [Required]
+        [StringLength(maximumLength:250, MinimumLength = 5)]
         public string Name { get; set; }
 
+        [StringLength(maximumLength: 950)]
         public string Description { get; set; }
 
         [Required]
