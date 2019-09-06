@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Wallet.Data.Entities;
 
 namespace Wallet.Services.HandlingErrors
 {
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger _logger;
+        private readonly ILogger<ExceptionMiddleware> _logger;
 
-        public ExceptionMiddleware(RequestDelegate next, ILogger logger)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _logger = logger;
             _next = next;
@@ -22,7 +22,7 @@ namespace Wallet.Services.HandlingErrors
         {
             try
             {
-                await _next(httpContext);
+                await _next.Invoke(httpContext);
             }
             catch (Exception ex)
             {
@@ -31,16 +31,27 @@ namespace Wallet.Services.HandlingErrors
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            var response = context.Response;
+            var statusCode = (int)HttpStatusCode.InternalServerError;
+            var message = "Internal Server Error";
+            var description = "Internal Server Error";
 
-            return context.Response.WriteAsync(new ErrorDetails()
+            if (exception is BaseCustomException customException)
             {
-                StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error from the custom middleware."
-            }.ToString());
+                message = customException.Message;
+                description = customException.Description;
+                statusCode = customException.Code;
+            }
+
+            response.ContentType = "application/json";
+            response.StatusCode = statusCode;
+            await response.WriteAsync(JsonConvert.SerializeObject(new CustomErrorResponse
+            {
+                Message = message,
+                Description = description
+            }));
         }
     }
 }
