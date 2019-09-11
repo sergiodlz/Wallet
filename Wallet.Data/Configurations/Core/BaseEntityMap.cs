@@ -34,29 +34,7 @@ namespace Wallet.Data.Configurations.Core
 
             builder.Entity<TEntityType>()
                 .Property(x => x.Enable)
-                .HasDefaultValueSql("1")
                 .IsRequired();
-
-            builder.Entity<TEntityType>()
-                .Property(x => x.CreationDate)
-                .HasDefaultValueSql("GetDate()")
-                .IsRequired();
-
-            builder.Entity<TEntityType>()
-                .Property(x => x.ModificationDate)
-                .HasDefaultValueSql("GetDate()")
-                .IsRequired();
-
-            builder.Entity<TEntityType>()
-                .Property(x => x.CreatedBy)
-                .IsUnicode()
-                .IsRequired()
-                .HasMaxLength(255);
-
-            builder.Entity<TEntityType>()
-                .Property(x => x.LastMdifiedBy)
-                .IsUnicode()
-                .HasMaxLength(255);
 
             #endregion EntityBase Configuration
 
