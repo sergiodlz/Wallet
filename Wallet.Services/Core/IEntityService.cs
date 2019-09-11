@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Wallet.Data.Entities;
 
 namespace Wallet.Services.Core
 {
-    public interface IEntityService<TEntity> where TEntity : BaseEntity
+    public interface IEntityService<TEntity>
     {
         /// <summary>
         /// Create record
@@ -70,13 +69,7 @@ namespace Wallet.Services.Core
         /// <param name="expression"></param>
         /// <param name="includeProperties"></param>
         /// <returns></returns>
-        Task<IEnumerable<TEntity>> FindByConditionAndIncludeAsync(Expression<Func<TEntity, bool>> expression, 
+        Task<IEnumerable<TEntity>> FindByConditionAndIncludeAsync(Expression<Func<TEntity, bool>> expression,
             params Expression<Func<TEntity, object>>[] includeProperties);
-
-        /// <summary>
-        /// Get all records with relations
-        /// </summary>
-        /// <returns></returns>
-        Task<IEnumerable<TEntity>> GetAllAndIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties);
     }
 }

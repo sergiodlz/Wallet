@@ -29,9 +29,6 @@ namespace Wallet.Services.GraphQL.Extensions
                 return null;
             }
 
-            entity.CreationDate = entity.ModificationDate = DateTime.UtcNow;
-            entity.Enable = true;
-            entity.LastMdifiedBy = entity.CreatedBy = userBy;
             return await _entityService.CreateAsync(entity);
         }
     }

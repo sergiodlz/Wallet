@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +7,24 @@ using System.Threading.Tasks;
 using Wallet.Data;
 using Wallet.Data.Entities;
 using Wallet.Services.Core;
+using Wallet.Services.Repository;
 
 namespace Wallet.Services
 {
-    public class EntityService<TEntity> : IEntityService<TEntity>
+    public class EntityService<TEntity> : EntityRepository<TEntity>, IEntityService<TEntity>
         where TEntity : BaseEntity
     {
         private readonly WalletContext _context;
 
         public EntityService(WalletContext context)
+            : base(context)
         {
             _context = context;
         }
 
         public async Task<TEntity> CreateAsync(TEntity entity)
         {
-            _context.Set<TEntity>().Add(entity);
+            Create(entity);
             await _context.SaveChangesAsync();
 
             return entity;
@@ -31,54 +32,35 @@ namespace Wallet.Services
 
         public async Task DeleteAsync(TEntity entity)
         {
-            EntityEntry dbEntityEntry = _context.Entry(entity);
-            dbEntityEntry.State = EntityState.Deleted;
+            Delete(entity);
             await _context.SaveChangesAsync();
         }
 
         public async Task DisableAsync(TEntity entity)
         {
             entity.Enable = false;
-            EntityEntry dbEntityEntry = _context.Entry(entity);
-            dbEntityEntry.State = EntityState.Modified;
+            Update(entity);
             await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression)
         {
-            return await _context.Set<TEntity>().AsNoTracking()
-                .Where(t => t.Enable).Where(expression).ToListAsync();
+            return await FindByCondition(expression).Where(t => t.Enable).ToListAsync();
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _context.Set<TEntity>().AsNoTracking()
-                .Where(t => t.Enable).ToListAsync();
-        }
-
-        public async Task<IEnumerable<TEntity>> GetAllAndIncludeAsync(params Expression<Func<TEntity, object>>[] includeProperties)
-        {
-            IQueryable<TEntity> query = _context.Set<TEntity>()
-                .AsNoTracking().Where(t => t.Enable);
-
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-
-            return await query.ToListAsync();
+            return await FindAll().ToListAsync();
         }
 
         public async Task<TEntity> GetByIdAsync(Guid id)
         {
-            return await _context.Set<TEntity>().AsNoTracking()
-                    .Where(t => t.Enable && t.Id.Equals(id)).FirstOrDefaultAsync();
+            return await FindByCondition(t => t.Enable && t.Id.Equals(id)).FirstOrDefaultAsync();
         }
 
         public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            EntityEntry dbEntityEntry = _context.Entry(entity);
-            dbEntityEntry.State = EntityState.Modified;
+            Update(entity);
             await _context.SaveChangesAsync();
 
             return entity;
@@ -87,28 +69,12 @@ namespace Wallet.Services
         public async Task<IEnumerable<TEntity>> FindByConditionAndIncludeAsync(Expression<Func<TEntity, bool>> expression,
             params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> query = _context.Set<TEntity>()
-                .AsNoTracking().Where(t => t.Enable).Where(expression);
-
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-
-            return await query.ToListAsync();
+            return await FindByConditionAndInclude(expression, includeProperties).Where(t => t.Enable).ToListAsync();
         }
 
         public async Task<TEntity> GetByIdAndIncludeAsync(Guid id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
-            IQueryable<TEntity> query = _context.Set<TEntity>().AsNoTracking()
-                    .Where(t => t.Enable && t.Id.Equals(id));
-
-            foreach (var includeProperty in includeProperties)
-            {
-                query = query.Include(includeProperty);
-            }
-
-            return await query.FirstOrDefaultAsync();
+            return await FindByConditionAndInclude(t => t.Enable && t.Id.Equals(id), includeProperties).FirstOrDefaultAsync();
         }
     }
 }

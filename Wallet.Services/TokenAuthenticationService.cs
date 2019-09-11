@@ -4,7 +4,6 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Wallet.Data.Entities;
 using Wallet.Services.Core;
 using Wallet.Services.ViewModels;
 

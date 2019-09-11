@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Wallet.Data.Entities;
 using Wallet.Services.ActionFilters;
 using Wallet.Services.Core;
-using Wallet.Services.Extensions;
 using Wallet.Services.ViewModels;
 
 namespace Wallet.API.Controllers
@@ -60,21 +59,21 @@ namespace Wallet.API.Controllers
         // POST: api/Account
         [HttpPost]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
-        public async Task<IActionResult> Post([FromBody] AccountCUDVM accountVM)
+        public async Task<IActionResult> Post([FromBody] AccountVM accountVM)
         {
             Account account = _mapper.Map<Account>(accountVM);
-            return Ok(await _accountService.CreateAsync(account));
+            var result = _mapper.Map<AccountVM>(await _accountService.CreateAsync(account));
+            return CreatedAtRoute("Get", new { id = result.Id }, result);
         }
 
         // PUT: api/Account/5
         [HttpPut("{id}")]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         [ServiceFilter(typeof(ValidateEntityExistsAsync<Account>))]
-        public async Task<IActionResult> Put(Guid id, [FromBody] AccountCUDVM accountVM)
+        public async Task<IActionResult> Put(Guid id, [FromBody] AccountVM accountVM)
         {
-            var account = HttpContext.Items["entity"] as Account;
-            account.Map(accountVM, User.Identity.Name);
-            await _accountService.UpdateAsync(account);
+            var newAccount = _mapper.Map<Account>(accountVM);
+            await _accountService.UpdateAsync(newAccount);
 
             return NoContent();
         }
@@ -82,7 +81,7 @@ namespace Wallet.API.Controllers
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         [ServiceFilter(typeof(ValidateEntityExistsAsync<Account>))]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Disable(Guid id)
         {
             var account = HttpContext.Items["entity"] as Account;
             await _accountService.DisableAsync(account);
