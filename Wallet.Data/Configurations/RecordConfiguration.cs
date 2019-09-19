@@ -45,11 +45,6 @@ namespace Wallet.Data.Configurations
             builder
                 .Property(x => x.AccountId)
                 .IsRequired();
-
-            builder
-                .HasOne<Account>()
-                .WithMany(a => a.Records)
-                .HasForeignKey(x => x.AccountId);
         }
     }
 }

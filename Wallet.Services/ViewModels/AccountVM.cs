@@ -15,13 +15,13 @@ namespace Wallet.Services.ViewModels
         public string Description { get; set; }
 
         [Required]
-        [NotEmpty]
+        [NotDefault]
         public Guid TypeId { get; set; }
 
         public string Type { get; set; }
 
         [Required]
-        [NotEmpty]
+        [NotDefault]
         public Guid UserId { get; set; }
 
         public double InitialBalance { get; set; }

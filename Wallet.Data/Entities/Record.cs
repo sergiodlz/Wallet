@@ -22,5 +22,7 @@ namespace Wallet.Data.Entities
         public IList<RecordLabel> RecordLabels { get; set; }
 
         public Guid AccountId { get; set; }
+
+        public virtual Account Account { get; set; }
     }
 }

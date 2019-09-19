@@ -51,6 +51,11 @@ namespace Wallet.Data.Configurations
                 .HasOne(x => x.Type)
                 .WithMany()
                 .HasForeignKey(x => x.TypeId);
+
+            builder
+                .HasMany(x => x.Records)
+                .WithOne(r => r.Account)
+                .HasForeignKey(r => r.AccountId);
         }
     }
 }

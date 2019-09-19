@@ -46,11 +46,11 @@ namespace Wallet.API.Controllers
         }
 
         // GET: api/Account/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         [ServiceFilter(typeof(ValidateEntityExistsAsync<Account>))]
         public async Task<IActionResult> Get(Guid id)
         {
-            var account = HttpContext.Items["entity"] as Account;
+            var account = await _accountService.GetByIdAndIncludeAsync(id, a => a.Type, a => a.User);
             account.Records = await _recordService.FindByConditionAndIncludeAsync(r => r.AccountId.Equals(id), r => r.SubCategory, r => r.Type);
             AccountVM accountVM = _mapper.Map<AccountVM>(account);
             return Ok(accountVM);
