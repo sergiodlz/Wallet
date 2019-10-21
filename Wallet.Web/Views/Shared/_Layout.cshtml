@@ -23,16 +23,18 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Wallet <sup>2</sup></div>
-            </a>
+            <!-- Sidebar - Brand -->
+            <li>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                    <div class="sidebar-brand-icon rotate-n-15">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3">Wallet <sup>2</sup></div>
+                </a>
+            </li>
             <!-- End of Sidebar - Brand -->
             <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <li><hr class="sidebar-divider my-0"></li>
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
@@ -43,13 +45,14 @@
             </li>
             <!-- End of Nav Item - Dashboard -->
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <li><hr class="sidebar-divider"></li>
 
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
+            <li>
+                <div class="sidebar-heading">
+                    Interface
+                </div>
+            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
@@ -83,12 +86,12 @@
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <li><hr class="sidebar-divider d-none d-md-block"></li>
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
+            <!-- Sidebar Toggler (Sidebar) -->           
+            <li class="text-center d-none d-md-inline">                
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </li>
         </ul>
         <!-- End of Sidebar -->
 
@@ -157,7 +160,7 @@
                             </li>
                             <!-- End of Nav Item - Alerts -->
 
-                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <li class="topbar-divider d-none d-sm-block"></li>
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
@@ -196,9 +199,6 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
                     @RenderBody()
                 </div>
                 <!--End of Page Content -->
@@ -208,7 +208,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; Wallet 2019</span>
                     </div>
                 </div>
             </footer>
@@ -235,7 +235,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="/">Logout</a>
                 </div>
             </div>
         </div>
