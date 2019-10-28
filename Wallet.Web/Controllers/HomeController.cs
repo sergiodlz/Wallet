@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.ObjectModel;
+using Wallet.Services.ViewModels;
+using Wallet.Web.ViewModels;
 
 namespace Wallet.Web.Controllers
 {
@@ -14,7 +18,44 @@ namespace Wallet.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            DashboardVM dashboardVM = new DashboardVM()
+            {
+                Accounts = new Collection<AccountVM>()
+                {
+                    new AccountVM()
+                    {
+                        Color = "#0000",
+                        Description = "Account for cash control",
+                        Id = Guid.NewGuid(),
+                        InitialBalance = 0,
+                        Name = "Cash",
+                        TypeId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid()
+                    },
+                    new AccountVM()
+                    {
+                        Color = "#0000",
+                        Description = "Account for Bancolombia debit card",
+                        Id = Guid.NewGuid(),
+                        InitialBalance = 0,
+                        Name = "Bancolombia",
+                        TypeId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid()
+                    },
+                    new AccountVM()
+                    {
+                        Color = "#0000",
+                        Description = "Account for Nequi control",
+                        Id = Guid.NewGuid(),
+                        InitialBalance = 0,
+                        Name = "Nequi",
+                        TypeId = Guid.NewGuid(),
+                        UserId = Guid.NewGuid()
+                    },
+                }
+            };
+
+            return View(dashboardVM);
         }
 
         public IActionResult Privacy()
