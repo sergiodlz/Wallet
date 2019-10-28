@@ -8,4 +8,8 @@
     <Folder Include="wwwroot\template\vendor\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Wallet.Services\Wallet.Services.csproj" />
+  </ItemGroup>
+
 </Project>
