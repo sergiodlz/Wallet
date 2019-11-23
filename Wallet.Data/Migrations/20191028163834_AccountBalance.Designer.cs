@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wallet.Data;
 
 namespace Wallet.Data.Migrations
 {
     [DbContext(typeof(WalletContext))]
-    partial class WalletContextModelSnapshot : ModelSnapshot
+    [Migration("20191028163834_AccountBalance")]
+    partial class AccountBalance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,10 +182,6 @@ namespace Wallet.Data.Migrations
                         .HasDefaultValueSql("NEWID()");
 
                     b.Property<bool>("Enable");
-
-                    b.Property<bool>("IsExpense")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValueSql("0");
 
                     b.Property<string>("Name")
                         .IsRequired()

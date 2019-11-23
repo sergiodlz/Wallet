@@ -36,6 +36,10 @@ namespace Wallet.Data.Configurations
                 .HasDefaultValueSql("0");
 
             builder
+                .Property(x => x.Balance)
+                .HasDefaultValueSql("0");
+
+            builder
                 .Property(x => x.TypeId)
                 .IsRequired();
 

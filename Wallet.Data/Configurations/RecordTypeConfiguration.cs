@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using Wallet.Data.Configurations.Core;
 using Wallet.Data.Entities;
@@ -18,6 +19,11 @@ namespace Wallet.Data.Configurations
                 .IsRequired()
                 .IsUnicode()
                 .HasMaxLength(255);
+
+            builder
+                .Property(x => x.IsExpense)
+                .IsRequired()
+                .HasDefaultValueSql("0");
         }
     }
 }

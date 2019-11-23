@@ -23,6 +23,8 @@ namespace Wallet.Data.Entities
 
         public string Color { get; set; }
 
+        public double Balance { get; set; }
+
         public virtual IEnumerable<Record> Records { get; set; }
     }
 }

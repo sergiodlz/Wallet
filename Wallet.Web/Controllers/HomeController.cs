@@ -26,21 +26,21 @@ namespace Wallet.Web.Controllers
                     {
                         Color = "#0000",
                         Description = "Account for cash control",
-                        Id = Guid.NewGuid(),
+                        Id = Guid.Parse("eca283c0-9446-410d-abd0-642322e337c3"),
                         InitialBalance = 0,
                         Name = "Cash",
-                        TypeId = Guid.NewGuid(),
-                        UserId = Guid.NewGuid()
+                        TypeId = Guid.Parse("179e86ae-c358-48c4-bf6d-76af86ecf625"),
+                        UserId = Guid.Parse("68b19f86-e52e-4b24-9003-06b6ecad4201")
                     },
                     new AccountVM()
                     {
                         Color = "#0000",
                         Description = "Account for Bancolombia debit card",
-                        Id = Guid.NewGuid(),
+                        Id = Guid.Parse("39537aa5-2f5f-47df-8241-cfdbb2348168"),
                         InitialBalance = 0,
                         Name = "Bancolombia",
-                        TypeId = Guid.NewGuid(),
-                        UserId = Guid.NewGuid()
+                        TypeId = Guid.Parse("179e86ae-c358-48c4-bf6d-76af86ecf625"),
+                        UserId =  Guid.Parse("68b19f86-e52e-4b24-9003-06b6ecad4201")
                     },
                     new AccountVM()
                     {
